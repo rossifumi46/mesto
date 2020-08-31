@@ -11,4 +11,4 @@
 
 **Ссылка на сайт**
 
-* [Ссылка](https://www.figma.com/file/StZjf8HnoeLdiXS7dYrLAh/JavaScript.-Sprint-4)
+* [Ссылка](https://rossifumi46.github.io/mesto/)
