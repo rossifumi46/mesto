@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="./pages/index.css">
+</head>
+<body>
+  <div class="page">
+    <header class="header">
+      <img src="./images/logo.svg" alt="" class="header__logo">
+    </header>
+    <main class="content">
+      <section class="profile">
+        <div class="profile__info">
+          <img src="./images/avatar.jpg" alt="аватар" class="profile__avatar">
+          <div class="profile__text">
+            <div class="profile__row">
+              <h1 class="profile__title">Жак-Ив Кусто</h1>
+              <button class="profile__edit-button"><img class="profile__edit-button-img" src="./images/edit_button.svg" alt=""></button>
+            </div>
+            <p class="profile__subtitle">Исследователь океана</p>
+          </div>
+        </div>
+        <button class="add-button">
+          <img class="add-button__img" src="./images/add_button.svg" alt="">
+        </button>
+      </section>
+      <section class="elements">
+        <div class="element">
+          <img src="./images/kirill-pershin-1088404-unsplash.jpg" alt="" class="element__image">
+          <div class="element__wrapper">
+            <h2 class="element__title">Карачаевск</h2>
+            <button class="element__like-button"><img src="./images/like_button.svg" alt=""></button>
+          </div>
+        </div>
+        <div class="element">
+          <img src="./images/kirill-pershin-1404681-unsplash.jpg" alt="" class="element__image">
+          <div class="element__wrapper">
+            <h2 class="element__title">Гора Эльбрус</h2>
+            <button class="element__like-button"><img src="./images/like_button.svg" alt=""></button>
+          </div>
+        </div>
+        <div class="element">
+          <img src="./images/kirill-pershin-1556355-unsplash.jpg" alt="" class="element__image">
+          <div class="element__wrapper">
+            <h2 class="element__title">Домбай</h2>
+            <button class="element__like-button"><img src="./images/like_button.svg" alt=""></button>
+          </div>
+        </div>
+        <div class="element">
+          <img src="./images/kirill-pershin-1088404-unsplash.jpg" alt="" class="element__image">
+          <div class="element__wrapper">
+            <h2 class="element__title">Гора Эльбрус</h2>
+            <button class="element__like-button"><img src="./images/like_button.svg" alt=""></button>
+          </div>
+        </div>
+        <div class="element">
+          <img src="./images/kirill-pershin-1404681-unsplash.jpg" alt="" class="element__image">
+          <div class="element__wrapper">
+            <h2 class="element__title">Домбай</h2>
+            <button class="element__like-button"><img src="./images/like_button.svg" alt=""></button>
+          </div>
+        </div>
+        <div class="element">
+          <img src="./images/kirill-pershin-1556355-unsplash.jpg" alt="" class="element__image">
+          <div class="element__wrapper">
+            <h2 class="element__title">Карачаево-Черкесия</h2>
+            <button class="element__like-button"><img src="./images/like_button.svg" alt=""></button>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <p class="footer__copyright">© 2020 Mesto Russia</p>
+    </footer>
+    <section class="popup">
+      <div class="popup__container">
+        <button class="popup__close">
+          <img src="./images/close_icon.svg" alt="" class="popup__close-img">
+        </button>
+        <h2 class="popup__form-title">Редактировать профиль</h2>
+        <form action="" class="edit-form">
+          <input type="text" class="popup__input input-name" placeholder="Имя">
+        <input type="text" class="popup__input input-job" placeholder="Род деятельности">
+        <button type="submit" class="popup__save-button">Сохранить</button>
+        </form>
+      </div>
+    </section>
+  </div>
+  <script src="scripts/index.js"></script>
+</body>
+</html>

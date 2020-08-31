@@ -1,0 +1,11 @@
+@import url(./__image/element__image.css);
+@import url(./__wrapper/element__wrapper.css);
+@import url(./__image/element__image.css);
+@import url(./__title/element__title.css);
+@import url(./__like-button/element__like-button.css);
+
+.element {
+  background-color: #FFF;
+  border-radius: 10px;
+  color: #000;
+}
