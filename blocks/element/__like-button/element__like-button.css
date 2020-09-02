@@ -2,3 +2,7 @@
   background-color: #FFF;
   border: none;
 }
+
+.element__like-button:hover .element__like-button-img {
+  content: url('../../../images/like_button_hover.svg');
+}

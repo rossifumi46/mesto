@@ -7,6 +7,7 @@ const nameInput = formElement.querySelector('.popup__input_type_name');
 const jobInput = formElement.querySelector('.popup__input_type_job');
 const profileTitle = document.querySelector('.profile__title');
 const profileSubtitle = document.querySelector('.profile__subtitle');
+const page = document.querySelector('.page');
 
 function popupOpenClose() {
   if (!(popup.classList.contains('popup_is-opened'))) {
@@ -14,6 +15,7 @@ function popupOpenClose() {
     jobInput.value = profileSubtitle.textContent;
   }
   popup.classList.toggle('popup_is-opened');
+  page.classList.toggle('page_overflow_hidden')
 }
 
 // Обработчик «отправки» формы, хотя пока
