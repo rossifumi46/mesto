@@ -15,7 +15,6 @@ function popupOpenClose() {
     jobInput.value = profileSubtitle.textContent;
   }
   popup.classList.toggle('popup_is-opened');
-  page.classList.toggle('page_overflow_hidden')
 }
 
 // Обработчик «отправки» формы, хотя пока
