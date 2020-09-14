@@ -5,10 +5,14 @@
 @import url(./__save-button/popup__save-button.css);
 @import url('./__close/popup__close.css');
 @import url('./__close-img/popup__close-img.css');
+@import url('./__container/_img/popup__container_img.css');
 
 .popup {
+  display: flex;
   position: fixed; 
-  display: none;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.5s linear;
   background: #00000080;
   top: 0;
   left: 0;

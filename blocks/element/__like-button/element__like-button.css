@@ -1,8 +1,10 @@
 .element__like-button {
   background-color: #FFF;
   border: none;
+  outline: none;
 }
 
-.element__like-button:hover .element__like-button-img {
+.element__like-button_hover:hover .element__like-button-img {
   content: url('../../../images/like_button_hover.svg');
+
 }
