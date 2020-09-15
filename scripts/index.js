@@ -50,19 +50,11 @@ const imageLinkInput = createFormElement.querySelector('.popup__input_type_link'
 
 const cardTemplate = document.querySelector('.card').content;
 
-initialCards.forEach((element) => {
-  const card = cardTemplate.cloneNode(true);
-  card.querySelector('.element__title').innerText = element.name;
-  card.querySelector('.element__image').src = element.link;
-  elements.appendChild(card);
-})
+const data = {};
+let card;
 
-function popupOpenClose() {
-  if (!(editPopup.classList.contains('popup_is-opened'))) {
-    nameInput.value = profileTitle.textContent;
-    jobInput.value = profileSubtitle.textContent;
-  }
-  editPopup.classList.toggle('popup_is-opened');
+function popupOpenClose(popup) {
+  popup.classList.toggle('popup_is-opened');
 }
 
 // Обработчик «отправки» формы, хотя пока
@@ -74,17 +66,25 @@ function formSubmitHandler (evt) {
 
   profileTitle.textContent = nameInput.value;
   profileSubtitle.textContent = jobInput.value;
-  popupOpenClose();
+  popupOpenClose(editPopup);
 }
 
-editButton.addEventListener('click', popupOpenClose);
+editButton.addEventListener('click', () => {
+  nameInput.value = profileTitle.textContent;
+  jobInput.value = profileSubtitle.textContent;
+  popupOpenClose(editPopup);
+});
 
-editCloseButton.addEventListener('click', popupOpenClose);
+editCloseButton.addEventListener('click', () => {
+  popupOpenClose(editPopup);
+});
 
-createCloseButton.addEventListener('click', () => createPopup.classList.toggle('popup_is-opened'));
+createCloseButton.addEventListener('click', () => {
+  popupOpenClose(createPopup)
+});
 
 addButton.addEventListener('click', () => {
-  createPopup.classList.toggle('popup_is-opened');
+  popupOpenClose(createPopup);
 });
 
 // Прикрепляем обработчик к форме:
@@ -93,45 +93,45 @@ editFormElement.addEventListener('submit', formSubmitHandler);
 
 createFormElement.addEventListener('submit', (event) => {
   event.preventDefault();
-  const card = cardTemplate.cloneNode(true);
-  if (cardTitleInput.value && imageLinkInput.value) {
-    card.querySelector('.element__title').innerText = cardTitleInput.value;
-    card.querySelector('.element__image').src = imageLinkInput.value;
-    elements.insertBefore(card, elements.firstChild)
-    createPopup.classList.toggle('popup_is-opened');
-    render();
-  }
+  data.link = imageLinkInput.value;
+  data.name = cardTitleInput.value;
+  const card = getCardElement(data);
+  elements.insertBefore(card, elements.firstChild)
+  popupOpenClose(createPopup);
 });
 
 const handleDelete = (event) => {
   elements.removeChild(event.target.parentNode);
 };
 
-const render = () => {
-  elements.querySelectorAll('.element__trash-icon').forEach(btn => btn.addEventListener('click', handleDelete));
-  elements.querySelectorAll('.element__image').forEach(img => img.addEventListener('click', handleImgClick));
-  elements.querySelectorAll('.element__like-button').forEach(btn => btn.addEventListener('click', (event) => {
+const getCardElement = (data) => {
+  card = cardTemplate.cloneNode(true);
+  card.querySelector('.element__title').innerText = data.name;
+  card.querySelector('.element__image').src = data.link;
+  card.querySelector('.element__trash-icon').addEventListener('click', handleDelete);
+  card.querySelector('.element__image').addEventListener('click', handleImgClick);
+  card.querySelector('.element__like-button').addEventListener('click', (event) => {
     event.target.classList.toggle('element_liked');
     event.target.parentNode.classList.toggle('element__like-button_hover');
-  }));
+  });
+  return card;
 }
-
-
-
 
 imagePopup = document.querySelector('.type_image');
 closeImgBtn = imagePopup.querySelector('.popup__close');
 closeImgBtn.addEventListener('click', () => {
-  imagePopup.classList.toggle('popup_is-opened');
+  popupOpenClose(imagePopup);
   imagePopup.querySelector('.popup__container').classList.toggle('popup__container_img');
 });
 
 const handleImgClick = (event) => {
-  imagePopup.classList.toggle('popup_is-opened');
+  popupOpenClose(imagePopup);
   imagePopup.querySelector('.full-img').src = event.target.src;
   imagePopup.querySelector('.img-title').innerText = event.target.parentNode.querySelector('.element__title').innerText;
   imagePopup.querySelector('.popup__container').classList.toggle('popup__container_img');
 };
 
-render();
-
+initialCards.forEach((element) => {
+  card = getCardElement(element);
+  elements.appendChild(card);
+})
