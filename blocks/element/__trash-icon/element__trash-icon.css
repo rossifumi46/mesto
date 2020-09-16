@@ -1,9 +1,0 @@
-.element__trash-icon {
-  position: absolute;
-  right: 15px;
-  top: 18px;
-}
-
-.element__trash-icon:hover {
-  content: url('../../../images/trash_icon_toggle.svg')
-}

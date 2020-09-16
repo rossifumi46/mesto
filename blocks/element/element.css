@@ -2,7 +2,7 @@
 @import url(./__image/element__image.css);
 @import url(./__title/element__title.css);
 @import url(./__like-button/element__like-button.css);
-@import url('./__trash-icon/element__trash-icon.css');
+@import url('./__trash-button/element__trash-button.css');
 @import url('./_liked/element_liked.css');
 
 .element {

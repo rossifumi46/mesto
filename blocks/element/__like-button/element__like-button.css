@@ -2,9 +2,13 @@
   background-color: #FFF;
   border: none;
   outline: none;
+  background-image: url('../../../images/like_button.svg');
+  width: 23px;
+  height: 19px;
+  background-size: cover;
 }
 
-.element__like-button_hover:hover .element__like-button-img {
-  content: url('../../../images/like_button_hover.svg');
-
+.element__like-button:hover {
+  opacity: 0.6;
+  cursor: pointer;
 }

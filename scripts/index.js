@@ -50,10 +50,10 @@ const imageLinkInput = createFormElement.querySelector('.popup__input_type_link'
 
 const cardTemplate = document.querySelector('.card').content;
 
-const data = {};
-let card;
 
-function popupOpenClose(popup) {
+
+
+function popupToggle(popup) {
   popup.classList.toggle('popup_is-opened');
 }
 
@@ -66,25 +66,25 @@ function formSubmitHandler (evt) {
 
   profileTitle.textContent = nameInput.value;
   profileSubtitle.textContent = jobInput.value;
-  popupOpenClose(editPopup);
+  popupToggle(editPopup);
 }
 
 editButton.addEventListener('click', () => {
   nameInput.value = profileTitle.textContent;
   jobInput.value = profileSubtitle.textContent;
-  popupOpenClose(editPopup);
+  popupToggle(editPopup);
 });
 
 editCloseButton.addEventListener('click', () => {
-  popupOpenClose(editPopup);
+  popupToggle(editPopup);
 });
 
 createCloseButton.addEventListener('click', () => {
-  popupOpenClose(createPopup)
+  popupToggle(createPopup)
 });
 
 addButton.addEventListener('click', () => {
-  popupOpenClose(createPopup);
+  popupToggle(createPopup);
 });
 
 // Прикрепляем обработчик к форме:
@@ -93,26 +93,27 @@ editFormElement.addEventListener('submit', formSubmitHandler);
 
 createFormElement.addEventListener('submit', (event) => {
   event.preventDefault();
+  const data = {};
   data.link = imageLinkInput.value;
   data.name = cardTitleInput.value;
   const card = getCardElement(data);
   elements.insertBefore(card, elements.firstChild)
-  popupOpenClose(createPopup);
+  popupToggle(createPopup);
 });
 
 const handleDelete = (event) => {
-  elements.removeChild(event.target.parentNode);
+  evt.target.closest('.card').remove()
 };
 
 const getCardElement = (data) => {
-  card = cardTemplate.cloneNode(true);
+  const card = cardTemplate.cloneNode(true);
   card.querySelector('.element__title').innerText = data.name;
-  card.querySelector('.element__image').src = data.link;
-  card.querySelector('.element__trash-icon').addEventListener('click', handleDelete);
-  card.querySelector('.element__image').addEventListener('click', handleImgClick);
+  const img = card.querySelector('.element__image');
+  img.src = data.link;
+  card.querySelector('.element__trash-button').addEventListener('click', handleDelete);
+  img.addEventListener('click', handleImgClick);
   card.querySelector('.element__like-button').addEventListener('click', (event) => {
     event.target.classList.toggle('element_liked');
-    event.target.parentNode.classList.toggle('element__like-button_hover');
   });
   return card;
 }
@@ -120,18 +121,17 @@ const getCardElement = (data) => {
 imagePopup = document.querySelector('.type_image');
 closeImgBtn = imagePopup.querySelector('.popup__close');
 closeImgBtn.addEventListener('click', () => {
-  popupOpenClose(imagePopup);
+  popupToggle(imagePopup);
   imagePopup.querySelector('.popup__container').classList.toggle('popup__container_img');
 });
 
 const handleImgClick = (event) => {
-  popupOpenClose(imagePopup);
+  popupToggle(imagePopup);
   imagePopup.querySelector('.full-img').src = event.target.src;
   imagePopup.querySelector('.img-title').innerText = event.target.parentNode.querySelector('.element__title').innerText;
   imagePopup.querySelector('.popup__container').classList.toggle('popup__container_img');
 };
 
 initialCards.forEach((element) => {
-  card = getCardElement(element);
-  elements.appendChild(card);
+  elements.appendChild(getCardElement(element));
 })
