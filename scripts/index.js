@@ -102,7 +102,7 @@ createFormElement.addEventListener('submit', (event) => {
 });
 
 const handleDelete = (event) => {
-  evt.target.closest('.card').remove()
+  event.target.closest('.element').remove();
 };
 
 const getCardElement = (data) => {
