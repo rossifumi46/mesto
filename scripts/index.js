@@ -34,19 +34,19 @@ const addButton = document.querySelector('.profile__add-button');
 const editPopup = document.querySelector('.type_edit');
 const createPopup = document.querySelector('.type_create');
 
-const editFormElement = editPopup.querySelector('.form');
+const editFormElement = editPopup.querySelector('.popup__form');
 const editCloseButton = editPopup.querySelector('.popup__close');
 
-const createFormElement = createPopup.querySelector('.form');
+const createFormElement = createPopup.querySelector('.popup__form');
 const createCloseButton = createPopup.querySelector('.popup__close');
 
-const nameInput = editFormElement.querySelector('.popup__input_type_name');
-const jobInput = editFormElement.querySelector('.popup__input_type_job');
+const nameInput = editFormElement.querySelector('#name-input');
+const jobInput = editFormElement.querySelector('#job-input');
 const profileTitle = document.querySelector('.profile__title');
 const profileSubtitle = document.querySelector('.profile__subtitle');
 
-const cardTitleInput = createFormElement.querySelector('.popup__input_type_name');
-const imageLinkInput = createFormElement.querySelector('.popup__input_type_link');
+const cardTitleInput = createFormElement.querySelector('#name-input');
+const imageLinkInput = createFormElement.querySelector('#link-input');
 
 const cardTemplate = document.querySelector('.card').content;
 
@@ -67,6 +67,21 @@ function formSubmitHandler (evt) {
   profileTitle.textContent = nameInput.value;
   profileSubtitle.textContent = jobInput.value;
   popupToggle(editPopup);
+}
+
+const closeByClickOverlay = (element) => {
+  element.addEventListener('click', (evt) => {
+    if (evt.target.classList.contains('popup')) {
+      popupToggle(element);
+    }
+  })
+}
+
+const closeByEsc = (element) => {
+  document.addEventListener('keydown', (evt) => {
+    if (evt.key === "Escape" && element.classList.contains('popup_is-opened'))
+      popupToggle(element);
+  })
 }
 
 editButton.addEventListener('click', () => {
@@ -135,3 +150,19 @@ const handleImgClick = (event) => {
 initialCards.forEach((element) => {
   elements.appendChild(getCardElement(element));
 })
+
+closeByClickOverlay(editPopup);
+closeByClickOverlay(createPopup);
+closeByClickOverlay(imagePopup);
+closeByEsc(editPopup);
+closeByEsc(createPopup);
+closeByEsc(imagePopup);
+
+enableValidation({
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+}); 

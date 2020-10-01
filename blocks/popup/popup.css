@@ -2,10 +2,14 @@
 @import url(./__input/popup__input.css);
 @import url(./__form-title/popup__form-title.css);
 @import url(./__status/popup__status.css);
-@import url(./__save-button/popup__save-button.css);
+@import url(./__button/popup__button.css);
 @import url('./__close/popup__close.css');
 @import url('./__close-img/popup__close-img.css');
 @import url('./__container/_img/popup__container_img.css');
+@import url('./__button/_disabled/popup__button_disabled.css');
+@import url('./__error/popup__error.css');
+@import url('./__error/_visible/popup__error_visible.css');
+@import url('./__input/_type/popup__input_type_error.css');
 
 .popup {
   display: flex;
