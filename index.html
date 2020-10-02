@@ -33,7 +33,7 @@
   <footer class="footer">
     <p class="footer__copyright">© 2020 Mesto Russia</p>
   </footer>
-  <section class="popup type_edit">
+  <section class="popup popup_type_edit">
     <div class="popup__container">
       <button type="button" class="popup__close">
         <img src="./images/close_icon.svg" alt="кнопка закрыть" class="popup__close-img">
@@ -48,23 +48,23 @@
       </form>
     </div>
   </section>
-  <section class="popup type_create">
+  <section class="popup popup_type_create">
     <div class="popup__container">
       <button type="button" class="popup__close">
         <img src="./images/close_icon.svg" alt="кнопка закрыть" class="popup__close-img">
       </button>
       <h2 class="popup__form-title">Новое место</h2>
       <form class="popup__form" name="createForm" novalidate>
-        <input id="name-input" type="text" required class="popup__input" placeholder="Название" name="name" minlength="2" maxlength="40">
-        <span class='popup__error' id='name-input-error'></span>
+        <input id="title-input" type="text" required class="popup__input" placeholder="Название" name="name" minlength="2" maxlength="40">
+        <span class='popup__error' id='title-input-error'></span>
         <input id="link-input" type="url" required class="popup__input" placeholder="Ссылка на картинку" name="img-link">
         <span class='popup__error' id='link-input-error'></span>
         <button type="submit" class="popup__button">Создать</button>
       </form>
     </div>
   </section>
-  <section class="popup type_image">
-    <div class="popup__container">
+  <section class="popup popup_type_image">
+    <div class="popup__container popup__container_img">
       <button type="button" class="popup__close">
         <img src="./images/close_icon.svg" alt="кнопка закрыть" class="popup__close-img">
       </button>

@@ -16,7 +16,7 @@
   position: fixed; 
   visibility: hidden;
   opacity: 0;
-  transition: visibility 0s, opacity 0.5s linear;
+  transition: visibility 0.5s, opacity 0.5s linear;
   background: #00000080;
   top: 0;
   left: 0;

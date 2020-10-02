@@ -31,8 +31,8 @@ const elements = document.querySelector('.elements');
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
 
-const editPopup = document.querySelector('.type_edit');
-const createPopup = document.querySelector('.type_create');
+const editPopup = document.querySelector('.popup_type_edit');
+const createPopup = document.querySelector('.popup_type_create');
 
 const editFormElement = editPopup.querySelector('.popup__form');
 const editCloseButton = editPopup.querySelector('.popup__close');
@@ -45,7 +45,7 @@ const jobInput = editFormElement.querySelector('#job-input');
 const profileTitle = document.querySelector('.profile__title');
 const profileSubtitle = document.querySelector('.profile__subtitle');
 
-const cardTitleInput = createFormElement.querySelector('#name-input');
+const cardTitleInput = createFormElement.querySelector('#title-input');
 const imageLinkInput = createFormElement.querySelector('#link-input');
 
 const cardTemplate = document.querySelector('.card').content;
@@ -53,8 +53,13 @@ const cardTemplate = document.querySelector('.card').content;
 
 
 
-function popupToggle(popup) {
-  popup.classList.toggle('popup_is-opened');
+function openPopup(popup) {
+  popup.classList.add('popup_is-opened');
+  closeByEsc(popup);
+}
+
+function closePopup(popup) {
+  popup.classList.remove('popup_is-opened');
 }
 
 // Обработчик «отправки» формы, хотя пока
@@ -66,40 +71,45 @@ function formSubmitHandler (evt) {
 
   profileTitle.textContent = nameInput.value;
   profileSubtitle.textContent = jobInput.value;
-  popupToggle(editPopup);
+  closePopup(editPopup);
 }
 
 const closeByClickOverlay = (element) => {
   element.addEventListener('click', (evt) => {
     if (evt.target.classList.contains('popup')) {
-      popupToggle(element);
+      closePopup(element);
     }
   })
 }
 
+const handleEsc = (evt) => {
+  const popup = document.querySelector('.popup_is-opened');
+  if (evt.key === "Escape") {
+    closePopup(popup);
+    document.removeEventListener('keydown', handleEsc);
+  }
+}
+
 const closeByEsc = (element) => {
-  document.addEventListener('keydown', (evt) => {
-    if (evt.key === "Escape" && element.classList.contains('popup_is-opened'))
-      popupToggle(element);
-  })
+  document.addEventListener('keydown', handleEsc)
 }
 
 editButton.addEventListener('click', () => {
   nameInput.value = profileTitle.textContent;
   jobInput.value = profileSubtitle.textContent;
-  popupToggle(editPopup);
+  openPopup(editPopup);
 });
 
 editCloseButton.addEventListener('click', () => {
-  popupToggle(editPopup);
+  closePopup(editPopup);
 });
 
 createCloseButton.addEventListener('click', () => {
-  popupToggle(createPopup)
+  closePopup(createPopup)
 });
 
 addButton.addEventListener('click', () => {
-  popupToggle(createPopup);
+  openPopup(createPopup);
 });
 
 // Прикрепляем обработчик к форме:
@@ -112,8 +122,9 @@ createFormElement.addEventListener('submit', (event) => {
   data.link = imageLinkInput.value;
   data.name = cardTitleInput.value;
   const card = getCardElement(data);
-  elements.insertBefore(card, elements.firstChild)
-  popupToggle(createPopup);
+  elements.insertBefore(card, elements.firstChild);
+  document.forms.createForm.reset();
+  closePopup(createPopup);
 });
 
 const handleDelete = (event) => {
@@ -133,18 +144,16 @@ const getCardElement = (data) => {
   return card;
 }
 
-imagePopup = document.querySelector('.type_image');
-closeImgBtn = imagePopup.querySelector('.popup__close');
+const imagePopup = document.querySelector('.popup_type_image');
+const closeImgBtn = imagePopup.querySelector('.popup__close');
 closeImgBtn.addEventListener('click', () => {
-  popupToggle(imagePopup);
-  imagePopup.querySelector('.popup__container').classList.toggle('popup__container_img');
+  closePopup(imagePopup);
 });
 
 const handleImgClick = (event) => {
-  popupToggle(imagePopup);
+  openPopup(imagePopup);
   imagePopup.querySelector('.full-img').src = event.target.src;
   imagePopup.querySelector('.img-title').innerText = event.target.parentNode.querySelector('.element__title').innerText;
-  imagePopup.querySelector('.popup__container').classList.toggle('popup__container_img');
 };
 
 initialCards.forEach((element) => {
@@ -154,9 +163,7 @@ initialCards.forEach((element) => {
 closeByClickOverlay(editPopup);
 closeByClickOverlay(createPopup);
 closeByClickOverlay(imagePopup);
-closeByEsc(editPopup);
-closeByEsc(createPopup);
-closeByEsc(imagePopup);
+
 
 enableValidation({
   formSelector: '.popup__form',
