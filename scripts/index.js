@@ -1,30 +1,3 @@
-const initialCards = [
-  {
-      name: 'Архыз',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-      name: 'Челябинская область',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-      name: 'Иваново',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-      name: 'Камчатка',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-      name: 'Холмогорский район',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-      name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-
 const elements = document.querySelector('.elements');
 
 // Buttons
@@ -51,15 +24,21 @@ const imageLinkInput = createFormElement.querySelector('#link-input');
 const cardTemplate = document.querySelector('.card').content;
 
 
-
+const handleEsc = (evt) => {
+  const popup = document.querySelector('.popup_is-opened');
+  if (evt.key === "Escape") {
+    closePopup(popup);
+  }
+}
 
 function openPopup(popup) {
   popup.classList.add('popup_is-opened');
-  closeByEsc(popup);
+  document.addEventListener('keydown', handleEsc)
 }
 
 function closePopup(popup) {
   popup.classList.remove('popup_is-opened');
+  document.removeEventListener('keydown', handleEsc);
 }
 
 // Обработчик «отправки» формы, хотя пока
@@ -76,22 +55,10 @@ function formSubmitHandler (evt) {
 
 const closeByClickOverlay = (element) => {
   element.addEventListener('click', (evt) => {
-    if (evt.target.classList.contains('popup')) {
+    if (evt.target === evt.currentTarget) {
       closePopup(element);
     }
   })
-}
-
-const handleEsc = (evt) => {
-  const popup = document.querySelector('.popup_is-opened');
-  if (evt.key === "Escape") {
-    closePopup(popup);
-    document.removeEventListener('keydown', handleEsc);
-  }
-}
-
-const closeByEsc = (element) => {
-  document.addEventListener('keydown', handleEsc)
 }
 
 editButton.addEventListener('click', () => {
@@ -124,6 +91,8 @@ createFormElement.addEventListener('submit', (event) => {
   const card = getCardElement(data);
   elements.insertBefore(card, elements.firstChild);
   document.forms.createForm.reset();
+  const button = createPopup.querySelector('.popup__button');
+  button.classList.add('popup__button_disabled');
   closePopup(createPopup);
 });
 
