@@ -82,8 +82,8 @@ createFormElement.addEventListener('submit', (event) => {
   const data = {};
   data.link = imageLinkInput.value;
   data.name = cardTitleInput.value;
-  const card = getCardElement(data);
-  elements.insertBefore(card, elements.firstChild);
+  const card = new Card(data, '.card');
+  elements.insertBefore(card.generateCard(), elements.firstChild);
   document.forms.createForm.reset();
   const button = createPopup.querySelector('.popup__button');
   button.classList.add('popup__button_disabled');
