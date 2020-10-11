@@ -32,8 +32,17 @@ const handleEsc = (evt) => {
 }
 
 function openPopup(popup) {
+  const inputList = Array.from(popup.querySelectorAll('.popup__input'));
+  document.forms.createForm.reset();
+  popup.querySelector('.popup__button').classList.add('popup__button_disabled');
+  inputList.forEach((inputElement) => {
+    const errorElement = popup.querySelector(`#${inputElement.id}-error`);
+    inputElement.classList.remove('popup__input_type_error');
+    errorElement.classList.remove('popup__error_visible');
+    errorElement.textContent = '';
+  }); 
   popup.classList.add('popup_is-opened');
-  document.addEventListener('keydown', handleEsc)
+  document.addEventListener('keydown', handleEsc);
 }
 
 function closePopup(popup) {
