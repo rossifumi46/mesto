@@ -16,7 +16,9 @@ import {
   popupWithCreateFormSelector,
   popupWithEditFormSelector,
   nameInput,
-  jobInput
+  jobInput,
+  titleInput,
+  linkInput
 } from './scripts/constants.js';
 
 const popupWithImage = new PopupWithImage(popupWithImageSelector);
@@ -37,7 +39,7 @@ const popupWithCreateForm = new PopupWithForm(
 
     const card = new Card({
       data: {
-        name: document.querySelector('#title-input').value, link: document.querySelector('#link-input').value
+        name: titleInput.value, link: linkInput.value
       }, 
       handleCardClick: (event) => {
         popupWithImage.open(event);

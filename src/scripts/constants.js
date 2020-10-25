@@ -41,3 +41,6 @@ export const popupWithEditFormSelector = '.popup_type_edit';
 
 export const nameInput = document.querySelector('#name-input');
 export const jobInput = document.querySelector('#job-input');
+
+export const titleInput = document.querySelector('#title-input');
+export const linkInput = document.querySelector('#link-input');
