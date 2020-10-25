@@ -1,5 +1,3 @@
-import {openPopup, closePopup, imagePopup, closeImgBtn, closeByClickOverlay} from './index.js'
-
 export default class FormValidator {
   
   constructor(validationSettings, formElement) {
