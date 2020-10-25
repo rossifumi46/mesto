@@ -3,7 +3,7 @@ const path = require('path'); // подключаем path к конфигу в�
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-const ASSET_PATH = process.env.ASSET_PATH || '/mesto/';
+const ASSET_PATH = process.env.ASSET_PATH || '/';
 
 
 module.exports = {
