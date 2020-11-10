@@ -8,6 +8,7 @@
   height: 20px;
   border: none;
   background-color:rgba(0, 0, 0, 0);
+  outline: none;
 }
 
 .element__trash-button:hover {

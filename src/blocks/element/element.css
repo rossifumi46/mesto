@@ -12,3 +12,10 @@
   height: 381px;
   position: relative;
 }
+
+.element__likes {
+  font-size: 13px;
+  line-height: 16px;
+  margin: 0;
+  text-align: center;
+}
