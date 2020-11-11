@@ -15,8 +15,8 @@ export const popupWithCreateFormSelector = '.popup_type_create';
 export const popupWithEditFormSelector = '.popup_type_edit';
 export const popupSubmitSelector = '.popup_type_submit'
 
-export const nameInput = document.querySelector('#name-input');
-export const jobInput = document.querySelector('#job-input');
+export const nameInput = document.querySelector('#name');
+export const jobInput = document.querySelector('#about');
 
 export const titleInput = document.querySelector('#title-input');
 export const linkInput = document.querySelector('#link-input');

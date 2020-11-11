@@ -43,59 +43,63 @@ const api = new Api({
 const popupSubmit = new PopupSubmit(popupSubmitSelector);
 popupSubmit.setEventListeners();
 let section = {}
-api.getInitialCards()
-  .then((result) => {
+
+const createCard = (data) => {
+  const isOwner = user.getUserInfo().id === data.owner._id;
+  const card = new Card({
+    data: data,
+    isOwner,
+    liked: data.likes.some(x => x._id === user.getUserInfo().id),
+    likes: data.likes.length,
+    handleCardClick: (event) => {
+      popupWithImage.open(event);
+    },
+    handleDeleteBtnClick: () => {
+      popupSubmit.open();
+      popupSubmit.setPopupSubmitHandler(() => {
+        api.deleteCard(data._id)
+          .then(() => {
+            card.remove();
+            popupSubmit.close();
+          })
+          .catch((err) => {
+            console.log(err); // выведем ошибку в консоль
+          });
+      });
+    },
+    handleLikeClick: () => {
+      const  method = card.isLiked() ? 'DELETE' : 'PUT'
+      api.like(data._id, method)
+        .then((result) => {
+          card.toggleLike(result.likes.length);
+        })
+        .catch((err) => {
+          console.log(err); // выведем ошибку в консоль
+        }); 
+    }
+  }, '.card');
+  return card;
+}
+
+Promise.all([
+  //в Promise.all передаем массив промисов которые нужно выполнить
+  api.getProfile(),
+  api.getInitialCards(),
+])
+  .then(([userData, initialCards]) => {
+    user.setUserinfo(userData);
+    avatar.style.backgroundImage = `url('${userData.avatar}')`;
     section  = new Section({
-      items: result,
+      items: initialCards,
       renderer: (item) => {
-        const isOwner = user.getUserInfo().id === item.owner._id;
-        const card = new Card({
-          data: item,
-          isOwner,
-          liked: item.likes.some(x => x._id === user.getUserInfo().id),
-          likes: item.likes.length,
-          handleCardClick: (event) => {
-            popupWithImage.open(event);
-          },
-          handleDeleteBtnClick: () => {
-            popupSubmit.open();
-            popupSubmit.setPopupSubmitHandler(() => {
-              api.deleteCard(item._id)
-                .then(() => {
-                  card.remove();
-                })
-                .catch((err) => {
-                  console.log(err); // выведем ошибку в консоль
-                });
-            });
-          },
-          handleLikeClick: () => {
-            const  method = card.isLiked() ? 'DELETE' : 'PUT'
-            api.like(item._id, method)
-              .then((result) => {
-                card.toggleLike(result.likes.length);
-              })
-              .catch((err) => {
-                console.log(err); // выведем ошибку в консоль
-              }); 
-          }
-        }, '.card');
-        return card.generateCard();
+        return createCard(item).generateCard();
       }
     }, elementsSelector);
     section.renderItems();
   })
   .catch((err) => {
-    console.log(err); // выведем ошибку в консоль
-  });
-
-api.getProfile()
-  .then((result) => {
-    user.setUserinfo(result);
-    avatar.style.backgroundImage = `url('${result.avatar}')`;
-  })
-  .catch((err) => {
-    console.log(err); // выведем ошибку в консоль
+    // попадаем сюда если один из промисов завершится ошибкой
+    console.log(err);
   }); 
 
 const popupAvatar = new PopupWithForm(
@@ -126,38 +130,7 @@ const popupWithCreateForm = new PopupWithForm(
     popupWithCreateForm.setStateSaving();
     api.createCard(titleInput.value, linkInput.value)
     .then((result) => {
-      const isOwner = user.getUserInfo().id === result.owner._id;
-      const card = new Card({
-        data: result,
-        isOwner,
-        liked: result.likes.some(x => x._id === user.getUserInfo().id),
-        likes: result.likes.length,
-        handleCardClick: (event) => {
-          popupWithImage.open(event);
-        },
-        handleDeleteBtnClick: () => {
-          popupSubmit.open();
-          popupSubmit.setPopupSubmitHandler(() => {
-            api.deleteCard(result._id)
-              .then(() => {
-                card.remove();
-              })
-              .catch((err) => {
-                console.log(err); // выведем ошибку в консоль
-              }); 
-          });
-        },
-        handleLikeClick: () => {
-          const  method = card.isLiked() ? 'DELETE' : 'PUT'
-          api.like(result._id, method)
-            .then((result) => {
-              card.toggleLike(result.likes.length);
-            })
-            .catch((err) => {
-              console.log(err); // выведем ошибку в консоль
-            });
-        }
-      }, '.card');
+      const card = createCard(result);
       section.addItem(card.generateCard());
       popupWithCreateForm.setStateFinished();
       popupWithCreateForm.close();
